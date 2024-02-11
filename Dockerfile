@@ -1,14 +1,15 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.9-slim
+FROM python:3.9-slim  
+
+# specifies the base image for the Docker container. In this case, it's using the official Python 3.9 slim image
 
 EXPOSE 5002
 
 WORKDIR /app
 COPY . /app
 
-# Install pip requirements
-COPY req.txt .
-RUN pip install -r req.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["gunicorn", "--bind", "0.0.0.0:5002", "app:app"]
+
+#Specifies the command to run when the container starts
